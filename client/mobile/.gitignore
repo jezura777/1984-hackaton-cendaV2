@@ -35,4 +35,7 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
+# lockfile
+pnpm-lock.yaml
+
 app-example
