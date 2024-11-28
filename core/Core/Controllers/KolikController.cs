@@ -10,6 +10,7 @@ using Core.Models;
 using System.Net;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Core.Controllers
 {
@@ -62,11 +63,12 @@ namespace Core.Controllers
         
         
         //
-        [Route("Kolik/Something")]
+        [Route("/test")]
         [HttpGet]
         public IActionResult Something()
         {
-            return Ok();
+            Console.WriteLine("test");
+            return NotFound();
         }
 
         [Route("Kolik/Endpoint")]
@@ -99,11 +101,11 @@ namespace Core.Controllers
                 {
                     var existingLine = lines[existingLineIndex];
                     var currentName = existingLine.Split(' ').Last();
-                    lines[existingLineIndex] = $"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} {kolikModel.Gps1} {kolikModel.Gps2} {currentName}";
+                    lines[existingLineIndex] = $"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} {currentName}";
                 }
                 else
                 {
-                    lines.Add($"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} {kolikModel.Gps1} {kolikModel.Gps2} kolik");
+                    lines.Add($"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} kolik");
                 }
                 System.IO.File.WriteAllLines(pathToFile, lines);
             }
@@ -115,6 +117,26 @@ namespace Core.Controllers
             return Ok(kolikModel);
         }
 
+        private string ReplaceName(string line, string Name)
+        {
+            string pattern = @"\s(\w+)$";
+            return Regex.Replace(line, pattern, " " + Name); 
+        }
+
+        /*
+        [Route("Data/Nazev")]
+        [HttpPost]
+        public IActionResult zNazev([FromBody] Nazev nNazev)
+        {
+            var pathToFile = Directory.GetCurrentDirectory() + "\\DatabazeLegit.txt";
+            if (Directory.Exists(pathToFile))
+            {
+                Console.WriteLine("Soubor neexistuje, vytvareni");
+                Directory.CreateDirectory(pathToFile);
+            }
+
+
+        }*/
 
 
         /*

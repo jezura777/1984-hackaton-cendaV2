@@ -8,11 +8,11 @@
         required public double Tlak { get; set; }   
         required public double Vyska {  get; set; }
         required public double Vlhkost {  get; set; }
-        required public double Svetlo {  get; set; }
+        required public int Svetlo {  get; set; }
         //podzemniHodnoty
         required public double TeplotaZ {  get; set; } //teplota země
-        required public double Voda {  get; set; }
-        required public double Gps1 {  get; set; }
-        required public double Gps2 {  get; set; }
+        required public Int16 Voda {  get; set; }
+        //required public double Gps1 {  get; set; }
+        //required public double Gps2 {  get; set; }
     }
 }
