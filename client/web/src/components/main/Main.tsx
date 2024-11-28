@@ -5,7 +5,7 @@ function Main(){
 
     let [title, setTitle] = useState('Nazev rostliny')
     
-
+    let  [plantlocation, setolantlocation] = useState(' ')
 
     let plant: any = Plants.map((e) => {
             return (
@@ -21,11 +21,17 @@ function Main(){
         for(let i of list){
             i.addEventListener('click', () => {
                 setTitle(i.textContent)
+
+                Plants.forEach((e) => {
+                    if(e.name === i.textContent){
+                        setolantlocation(e.location)
+                    }
+                })
+
             })
 
             
         }
-
     }, [])
    
 
@@ -35,10 +41,12 @@ function Main(){
             <div className="row-start-2 h-full w-full ml-5  overflow-y-auto border-[#d3d6d0] border-y-2">
                 <ul>{plant}</ul>
             </div>
-
+            <div className="row-start-2 col-start-3">
+                <h5>nazev: {title}</h5>
+                <p>vyskyt: {plantlocation}</p>
+            </div>
             <iframe className="col-end-4 w-full h-full" id="map" src="https://mapy.cz/zakladni?x=16.5914000&y=49.2232000&z=11"></iframe>
         
-            
         </main>
     )
 }
