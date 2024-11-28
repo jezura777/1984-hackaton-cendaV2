@@ -1,9 +1,44 @@
+import { useEffect, useState } from "react"
+import Plants from "../plants/Plants"
+
 function Main(){
+
+    let [title, setTitle] = useState('Nazev rostliny')
+    
+
+
+    let plant: any = Plants.map((e) => {
+            return (
+                <li key={e.id}>{e.name}</li>
+            )
+    })
+
+    useEffect(() => {
+
+        const ul = document.querySelector('ul') as  HTMLUListElement
+        const list: any = ul.querySelectorAll('li')
+
+        for(let i of list){
+            i.addEventListener('click', () => {
+                setTitle(i.textContent)
+            })
+
+            
+        }
+
+    }, [])
+   
+
     return (
         <main id="main" className="h-[100%] w-[100%] m-l-0 grid grid-rows-3 grid-cols-3">
-            <h1 className="text-[50px] justify-self-center self-center">Nazev</h1>
-            <div className="row-start-2"> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloremque a dolore sunt consequuntur voluptas assumenda iste quasi, praesentium amet labore minus, soluta magnam facere! Eos asperiores quo libero iste veritatis.</div>
-            <iframe className="col-end-4 w-full h-full" id="map" src="https://www.openstreetmap.org/search?query=brno#map=11/49.2023/16.5777"></iframe>
+            <h1 className="text-[50px] justify-self-center self-center text-[#d3d6d0]">{title}</h1>
+            <div className="row-start-2 h-full w-full ml-5  overflow-y-auto border-[#d3d6d0] border-y-2">
+                <ul>{plant}</ul>
+            </div>
+
+            <iframe className="col-end-4 w-full h-full" id="map" src="https://mapy.cz/zakladni?x=16.5914000&y=49.2232000&z=11"></iframe>
+        
+            
         </main>
     )
 }
