@@ -9,6 +9,7 @@ using Core.Data;
 using Core.Models;
 using System.Net;
 using Microsoft.AspNetCore.Http.HttpResults;
+using System.IO;
 
 namespace Core.Controllers
 {
@@ -57,18 +58,87 @@ namespace Core.Controllers
         // POST: Kolik/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Parametr,Hodnota")] KolikModel kolikModel)
+        //[ValidateAntiForgeryToken]
+        
+        
+        //
+        [Route("Kolik/Something")]
+        [HttpGet]
+        public IActionResult Something()
         {
-            if (ModelState.IsValid)
+            return Ok();
+        }
+
+        [Route("Kolik/Endpoint")]
+        [HttpPost]
+        
+        public IActionResult Endpoint([FromBody] KolikModel kolikModel)
+        {
+            bool isLineReplaced = false;
+            Console.WriteLine("End point POST");
+            //var pathToFile = Path.GetDirectoryName("File.txt");
+            var pathToFile = Directory.GetCurrentDirectory() + "\\DatabazeLegit.txt";
+            /*if (ModelState.IsValid)
             {
                 _context.Add(kolikModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            //return View(kolikModel);
-            return NoContent();
+            //return View(kolikModel);*/
+            if(Directory.Exists(pathToFile))
+            {
+                Console.WriteLine("Soubor neexistuje, vytvareni");
+                Directory.CreateDirectory(pathToFile);
+            }
+
+            //nefunguje for each
+            List<string> allLines = new List<string>(System.IO.File.ReadAllLines(pathToFile));
+
+
+            //var tLine = line;
+            //Console.WriteLine("uuuughh");
+
+            int pocetRadku = allLines.Count;
+            if (allLines.Count == 0) pocetRadku++;
+                 for (int i = 0; i < allLines.Count; i++)
+                 {
+
+                    Console.WriteLine("Radek: " + allLines[i]);
+                    if (allLines[i].Contains(kolikModel.Mac) == true)
+                    {
+                        isLineReplaced = true;
+                        Console.WriteLine("Mac Adresa nalezena v souboru");
+                        //streamWriter.Write($"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} {kolikModel.Gps1} {kolikModel.Gps2} \n");
+
+                        allLines[i] = $"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} {kolikModel.Gps1} {kolikModel.Gps2} \n";
+                            
+                }
+                    else
+                    {
+
+                        //isLineReplaced = true;
+                        Console.WriteLine("Mac Adresa nenalezena v souboru");
+                        allLines[i] = $"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} {kolikModel.Gps1} {kolikModel.Gps2} Kolik\n";
+                        //streamWriter.Write($"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} {kolikModel.Gps1} {kolikModel.Gps2} Kolik\n");
+
+                    }
+                 }
+
+            
+           //using (StreamWriter streamWriter = new StreamWriter(pathToFile, false))
+           //{
+           for (int j = 0; j < allLines.Count; j++)
+           {
+               //streamWriter.WriteLine(allLines[j]);
+               System.IO.File.WriteAllLines(pathToFile, allLines);
+           }
+           //}
+
+
+
+
+
+            return Ok(kolikModel);
         }
 
 
@@ -92,6 +162,8 @@ namespace Core.Controllers
         // POST: Kolik/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
+        /*
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Parametr,Hodnota")] KolikModel kolikModel)
@@ -161,6 +233,6 @@ namespace Core.Controllers
         private bool KolikModelExists(int id)
         {
             return _context.KolikModel.Any(e => e.Id == id);
-        }
+        }*/
     }
 }

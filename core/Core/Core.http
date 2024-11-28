@@ -4,3 +4,17 @@ GET {{Core_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+
+POST http://localhost:5279/Kolik/Create
+Content-Type: application/json
+@body
+{
+  "id": 1,
+  "Parametr": "Teplota",
+  "Hodnota": 35
+}
+
+
+###
+GET http://localhost:5279/Kolik/Something
