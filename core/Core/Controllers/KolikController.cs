@@ -74,9 +74,7 @@ namespace Core.Controllers
         
         public IActionResult Endpoint([FromBody] KolikModel kolikModel)
         {
-            bool isLineReplaced = false;
             Console.WriteLine("End point POST");
-            //var pathToFile = Path.GetDirectoryName("File.txt");
             var pathToFile = Directory.GetCurrentDirectory() + "\\DatabazeLegit.txt";
             /*if (ModelState.IsValid)
             {
@@ -91,52 +89,26 @@ namespace Core.Controllers
                 Directory.CreateDirectory(pathToFile);
             }
 
-            //nefunguje for each
-            List<string> allLines = new List<string>(System.IO.File.ReadAllLines(pathToFile));
+            try
+            {
+                var lines = System.IO.File.ReadAllLines(pathToFile).ToList();
 
+                var existingLineIndex = lines.FindIndex(line => line.StartsWith(kolikModel.Mac));
 
-            //var tLine = line;
-            //Console.WriteLine("uuuughh");
-
-            int pocetRadku = allLines.Count;
-            if (allLines.Count == 0) pocetRadku++;
-                 for (int i = 0; i < allLines.Count; i++)
-                 {
-
-                    Console.WriteLine("Radek: " + allLines[i]);
-                    if (allLines[i].Contains(kolikModel.Mac) == true)
-                    {
-                        isLineReplaced = true;
-                        Console.WriteLine("Mac Adresa nalezena v souboru");
-                        //streamWriter.Write($"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} {kolikModel.Gps1} {kolikModel.Gps2} \n");
-
-                        allLines[i] = $"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} {kolikModel.Gps1} {kolikModel.Gps2} \n";
-                            
+                if (existingLineIndex >= 0)
+                {
+                    lines[existingLineIndex] = $"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} {kolikModel.Gps1} {kolikModel.Gps2}";
                 }
-                    else
-                    {
-
-                        //isLineReplaced = true;
-                        Console.WriteLine("Mac Adresa nenalezena v souboru");
-                        allLines[i] = $"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} {kolikModel.Gps1} {kolikModel.Gps2} Kolik\n";
-                        //streamWriter.Write($"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} {kolikModel.Gps1} {kolikModel.Gps2} Kolik\n");
-
-                    }
-                 }
-
-            
-           //using (StreamWriter streamWriter = new StreamWriter(pathToFile, false))
-           //{
-           for (int j = 0; j < allLines.Count; j++)
-           {
-               //streamWriter.WriteLine(allLines[j]);
-               System.IO.File.WriteAllLines(pathToFile, allLines);
-           }
-           //}
-
-
-
-
+                else
+                {
+                    lines.Add($"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} {kolikModel.Gps1} {kolikModel.Gps2} kolik");
+                }
+                System.IO.File.WriteAllLines(pathToFile, lines);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");            
+            }
 
             return Ok(kolikModel);
         }
