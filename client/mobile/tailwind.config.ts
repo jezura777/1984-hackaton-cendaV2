@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import { Colors } from './constants/Colors';
 
 export default {
 	content: ['./app/**/*.{js,jsx,ts,tsx}', './components/**/*.{js,jsx,ts,tsx}'],
@@ -6,8 +7,12 @@ export default {
 	darkMode: 'class',
 	theme: {
 		extend: {
+			colors: {
+				light: Colors.light,
+				dark: Colors.dark,
+			},
 			fontFamily: {
-				mplus: ["'proxima-soft'", 'Verdana', 'sans-serif'],
+				mplus: ["'Poppins'", 'Verdana', 'sans-serif'],
 			},
 		},
 	},
