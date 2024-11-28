@@ -7,23 +7,38 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { useSegments } from 'expo-router';
 
 export default function TabLayout() {
 	const colorScheme = useColorScheme();
+	const segment = useSegments();
 
 	return (
 		<Tabs
 			screenOptions={{
+				animation: 'none',
+				tabBarHideOnKeyboard: true,
 				tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
 				headerShown: false,
 				tabBarButton: HapticTab,
+				tabBarShowLabel: false,
 				tabBarBackground: TabBarBackground,
 				tabBarStyle: Platform.select({
 					ios: {
 						// Use a transparent background on iOS to show the blur effect
 						position: 'absolute',
 					},
-					default: {},
+					default: {
+						borderTopLeftRadius: 30,
+						borderTopRightRadius: 30,
+						backgroundColor: '#EBEBEB',
+						position: 'absolute',
+						overflow: 'hidden',
+						height: 80,
+						justifyContent: 'center',
+						paddingTop: 15,
+					},
 				}),
 			}}
 		>
@@ -32,16 +47,36 @@ export default function TabLayout() {
 				options={{
 					title: 'Home',
 					tabBarIcon: ({ color }) => (
-						<IconSymbol size={28} name='house.fill' color={color} />
+						<Ionicons size={28} name='home-outline' color={color} style={{}} />
 					),
 				}}
 			/>
 			<Tabs.Screen
-				name='explore'
+				name='scan'
 				options={{
-					title: 'Explore',
+					title: 'Scan',
+					headerShown: false,
+					tabBarStyle: { display: 'none' },
 					tabBarIcon: ({ color }) => (
-						<IconSymbol size={28} name='paperplane.fill' color={color} />
+						<Ionicons size={28} name='scan-outline' color={color} />
+					),
+				}}
+			/>
+			<Tabs.Screen
+				name='list'
+				options={{
+					title: 'List',
+					tabBarIcon: ({ color }) => (
+						<Ionicons size={28} name='rose-outline' color={color} />
+					),
+				}}
+			/>
+			<Tabs.Screen
+				name='something'
+				options={{
+					title: 'Something',
+					tabBarIcon: ({ color }) => (
+						<Ionicons size={28} name='person-outline' color={color} />
 					),
 				}}
 			/>
