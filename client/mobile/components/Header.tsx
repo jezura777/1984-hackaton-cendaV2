@@ -1,10 +1,17 @@
 import { StyleSheet, Platform } from 'react-native';
-
+import React, { useState } from 'react';
 import { HelloWave } from '@/components/HelloWave';
 import { View, Text, Image, Pressable, TextInput } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import NotificationsButton from './NotificationsButton';
 
-export default function Header() {
+type HeaderProps = {
+	isModalVisible: boolean;
+	onNotificationClick: () => void;
+	onModalClose: () => void;
+};
+
+export default function Header({ isModalVisible, onNotificationClick, onModalClose }: HeaderProps) {
 	return (
 		<View className='mx-12 my-16 pt-10'>
 			<View className='mb-6 flex-row items-center justify-between'>
@@ -13,7 +20,7 @@ export default function Header() {
 						<Text className='text-4xl font-sans text-light-text dark:text-dark-text'>
 							Welcome
 						</Text>
-						<HelloWave />
+						{/* <HelloWave /> */}
 					</View>
 					<Text className='text-4xl font-semibold text-light-text dark:text-dark-text'>
 						Chris Allow
@@ -21,15 +28,7 @@ export default function Header() {
 				</View>
 
 				{/* notification component */}
-				<Pressable className='w-16 h-16 bg-light-icon rounded-md shadow-lg flex items-center justify-center'>
-					{/* Notification Badge */}
-					<View className='absolute -top-1 -right-1 bg-light-tint w-5 h-5 rounded-full flex items-center justify-center z-10'>
-						<Text className='text-xs font-bold text-white'>1</Text>
-					</View>
-
-					{/* Notification Icon */}
-					<Ionicons name='notifications-outline' size={24} />
-				</Pressable>
+				<NotificationsButton onPress={onNotificationClick} />
 			</View>
 
 			<View className='flex-row items-center gap-4'>
