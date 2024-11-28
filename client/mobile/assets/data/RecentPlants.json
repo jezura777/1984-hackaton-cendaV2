@@ -1,0 +1,32 @@
+[
+	{
+		"id": 1,
+		"name": "Heartleaf Philodendron",
+		"water": 7500,
+		"image": "https://i.imgur.com/EVYoHUx.jpeg"
+	},
+	{
+		"id": 2,
+		"name": "Decor Plant",
+		"water": 6000,
+		"image": "https://i.imgur.com/HKs2FT9.jpeg"
+	},
+	{
+		"id": 3,
+		"name": "Tropical Plant",
+		"water": 10000,
+		"image": "https://i.imgur.com/mHbn3sU.jpeg"
+	},
+	{
+		"id": 4,
+		"name": "Indoor Plant",
+		"water": 8000,
+		"image": "https://i.imgur.com/6HJYSn9.jpeg"
+	},
+	{
+		"id": 5,
+		"name": "Flower Plant",
+		"water": 9000,
+		"image": "https://i.imgur.com/rpZqWV5.jpeg"
+	}
+]
