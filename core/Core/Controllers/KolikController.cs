@@ -97,7 +97,9 @@ namespace Core.Controllers
 
                 if (existingLineIndex >= 0)
                 {
-                    lines[existingLineIndex] = $"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} {kolikModel.Gps1} {kolikModel.Gps2}";
+                    var existingLine = lines[existingLineIndex];
+                    var currentName = existingLine.Split(' ').Last();
+                    lines[existingLineIndex] = $"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} {kolikModel.Gps1} {kolikModel.Gps2} {currentName}";
                 }
                 else
                 {
@@ -112,6 +114,7 @@ namespace Core.Controllers
 
             return Ok(kolikModel);
         }
+
 
 
         /*
