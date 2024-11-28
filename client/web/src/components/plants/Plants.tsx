@@ -53,7 +53,6 @@ const Plants: {
     { id: 48, name: "Máta peprná", location: "Europe, Asia" },
     { id: 49, name: "Rozmarýn lékařský", location: "Mediterranean region" },
     { id: 50, name: "Řebříček obecný", location: "Europe, Asia, North America" }
-
 ]
 
 
