@@ -1,5 +1,10 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
+import {
+	useFonts,
+	Poppins_600SemiBold,
+	Poppins_700Bold,
+	Poppins_500Medium,
+} from '@expo-google-fonts/poppins';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -15,7 +20,10 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
 	const colorScheme = useColorScheme();
 	const [loaded] = useFonts({
-		SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+		Poppins_400Regular: require('@expo-google-fonts/poppins/Poppins_400Regular.ttf'),
+		Poppins_500Medium: require('@expo-google-fonts/poppins/Poppins_500Medium.ttf'),
+		Poppins_600SemiBold: require('@expo-google-fonts/poppins/Poppins_600SemiBold.ttf'),
+		Poppins_700Bold: require('@expo-google-fonts/poppins/Poppins_700Bold.ttf'),
 	});
 
 	useEffect(() => {
