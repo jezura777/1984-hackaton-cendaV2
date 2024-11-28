@@ -20,13 +20,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.Urls.Add("http://localhost:80");
+app.Urls.Add("http://10.10.8.50");
 
 app.Run();
