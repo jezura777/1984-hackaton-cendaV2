@@ -11,5 +11,7 @@
         required public double TeplotaZ { get; set; } //teplota země
         required public Int16 Voda { get; set; }
         required public string Jmeno {  get; set; }
+        public int id {  get; set; }
+        public string image {  get; set; }
     }
 }

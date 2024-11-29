@@ -108,7 +108,7 @@ namespace Core.Controllers
                 }
                 else
                 {
-                    lines.Add($"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} kolik");
+                    lines.Add($"{kolikModel.Mac} {kolikModel.TeplotaV} {kolikModel.Tlak} {kolikModel.Vyska} {kolikModel.Vlhkost} {kolikModel.Svetlo} {kolikModel.TeplotaZ} {kolikModel.Voda} Heartleaf-Philodendron");
                 }
                 System.IO.File.WriteAllLines(pathToFile, lines);
             }
@@ -131,9 +131,11 @@ namespace Core.Controllers
         [HttpGet]
         public IActionResult SendData()
         {
+            Console.WriteLine("Request: Send Data");
             var pathToFile = Directory.GetCurrentDirectory() + "\\DatabazeLegit.txt";
-            foreach (var line in System.IO.File.ReadLines(pathToFile)) {
-
+            foreach (var line in System.IO.File.ReadLines(pathToFile)) 
+            {
+                Console.WriteLine(line);
                 string[] parts = line.Split(' ');
                 if (parts.Length == 9)
                 {
@@ -146,7 +148,7 @@ namespace Core.Controllers
                     short VD = short.Parse(parts[7]);
                     
 
-                    SendDataModel sentData = new SendDataModel { TeplotaV = TV, Tlak = TL, Vyska = VY, Vlhkost = VL, Svetlo = SV, TeplotaZ = TZ, Voda = VD, Jmeno = parts[8] };
+                    SendDataModel sentData = new SendDataModel { TeplotaV = TV, Tlak = TL, Vyska = VY, Vlhkost = VL, Svetlo = SV, TeplotaZ = TZ, Voda = VD, Jmeno = parts[8], id=1, image= "https://i.imgur.com/EVYoHUx.jpeg" };
                     return Ok(sentData);
                 } 
                 else
