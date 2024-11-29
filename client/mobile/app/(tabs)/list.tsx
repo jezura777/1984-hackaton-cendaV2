@@ -1,76 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Modal, Image, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import plantsData from '@/assets/data/Plants.json';
 import AnimatedProgressBar from '@/components/AnimatedProgressBar';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+
+interface Plant {
+	id: number;
+	jmeno: string;
+	image: string;
+	voda: number;
+	teplotaZ: number;
+	teplotaV: number;
+	svetlo: number;
+	vlhkost: number;
+	vyska: number;
+	tlak: number;
+}
 
 export default function List() {
-	const [selectedPlant, setSelectedPlant] = useState<null | {
-		id: number;
-		jmeno: string;
-		image: string;
-		voda: number;
-		teplotaZ: number;
-		teplotaV: number;
-		svetlo: number;
-		vlhkost: number;
-		vyska: number;
-		tlak: number;
-	}>(null);
+	const [selectedPlant, setSelectedPlant] = useState<null | Plant>(null);
+	const [plants, setPlants] = useState(plantsData);
 	const router = useRouter();
+	const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-	const getColor = (property: string, value: number): string => {
-		switch (property) {
-			case 'teplotaV': // air temperature
-				if (value < 18 || value > 27) return 'red';
-				if ((value >= 18 && value < 20) || (value > 25 && value <= 27)) return 'yellow';
-				return 'green';
-			case 'tlak': // pressure
-				if (value < 900 || value > 1100) return 'red';
-				if ((value >= 900 && value < 950) || (value > 1050 && value <= 1100))
-					return 'yellow';
-				return 'green';
-			case 'vyska': // height above sea level
-				if (value < 50 || value > 200) return 'red';
-				if ((value >= 50 && value < 100) || (value > 150 && value <= 200)) return 'yellow';
-				return 'green';
-			case 'vlhkost': // air moisture
-				if (value < 20 || value > 80) return 'red';
-				if ((value >= 20 && value < 30) || (value > 70 && value <= 80)) return 'yellow';
-				return 'green';
-			case 'svetlo': // light
-				if (value < 2 || value > 6) return 'red';
-				if ((value >= 2 && value < 3) || (value > 5 && value <= 6)) return 'yellow';
-				return 'green';
-			case 'teplotaZ': // soil temperature
-				if (value < 15 || value > 30) return 'red';
-				if ((value >= 15 && value < 18) || (value > 27 && value <= 30)) return 'yellow';
-				return 'green';
-			case 'voda': // water in soil
-				if (value < 20 || value > 80) return 'red';
-				if ((value >= 20 && value < 30) || (value > 70 && value <= 80)) return 'yellow';
-				return 'green';
-			default:
-				return 'gray';
-		}
-	};
+	useEffect(() => {
+		intervalRef.current = setInterval(async () => {
+			try {
+				const response = await fetch('http://10.10.11.193:3000/plants');
+				const data: Plant[] = await response.json();
+				console.log(data);
+				setPlants(data);
+
+				if (selectedPlant) {
+					const updatedSelectedPlant = data.find(
+						(plant: Plant) => plant.id === selectedPlant.id
+					);
+					if (updatedSelectedPlant) {
+						setSelectedPlant(updatedSelectedPlant);
+					}
+				}
+			} catch (error) {
+				console.error(error);
+			}
+		}, 300);
+
+		return () => {
+			if (intervalRef.current) {
+				clearInterval(intervalRef.current);
+			}
+		};
+	}, [selectedPlant]);
 
 	const renderPlantItem = ({
 		item,
 	}: {
-		item: {
-			id: number;
-			jmeno: string;
-			image: string;
-			voda: number;
-			teplotaZ: number;
-			teplotaV: number;
-			svetlo: number;
-			vlhkost: number;
-			vyska: number;
-			tlak: number;
-		};
+		item: Plant;
 	}) => (
 		<TouchableOpacity
 			className='flex-1 m-2 bg-gray-200 items-center justify-center h-48 rounded-lg overflow-hidden'
@@ -96,9 +82,11 @@ export default function List() {
 	return (
 		<View className='flex-1 mb-8 mt-14'>
 			<FlatList
-				data={[...plantsData, { id: 'add' }]}
+				data={[...plantsData.plants, { id: 'add', type: 'add' } as const]}
 				renderItem={({ item }) =>
-					item.id === 'add' ? renderAddItem() : renderPlantItem({ item })
+					'type' in item && item.type === 'add'
+						? renderAddItem()
+						: renderPlantItem({ item: item as any })
 				}
 				keyExtractor={(item) => item.id.toString()}
 				numColumns={2}
@@ -126,27 +114,45 @@ export default function List() {
 						<View className='p-5'>
 							<Text className='text-3xl font-semibold'>{selectedPlant.jmeno}</Text>
 
-							{/* pressure */}
+							{/* water */}
 							<View className='my-4 p-4 bg-white rounded-md shadow-md'>
 								<Text className='font-sans text-lg'>
-									Pressure{' '}
-									<Text className='font-semibold'>{selectedPlant.tlak} Pa</Text>
+									Water{' '}
+									<Text className='font-semibold'>
+										{Math.round((selectedPlant.voda / 14000) * 100)}%
+									</Text>
 								</Text>
 								<AnimatedProgressBar
-									progress={(selectedPlant.tlak / 1100) * 100}
-									color={getColor('tlak', selectedPlant.tlak)}
+									progress={(selectedPlant.voda / 14000) * 100}
+									color='blue'
 								/>
 							</View>
 
-							{/* height above sea level */}
+							{/* air moisture */}
 							<View className='my-4 p-4 bg-white rounded-md shadow-md'>
 								<Text className='font-sans text-lg'>
-									Height Above Sea Level:{' '}
-									<Text className='font-semibold'> {selectedPlant.vyska}m </Text>
+									Air Moisture{' '}
+									<Text className='font-semibold'>
+										{Math.round(selectedPlant.vlhkost)}%
+									</Text>
 								</Text>
 								<AnimatedProgressBar
-									progress={(selectedPlant.vyska / 200) * 100}
-									color={getColor('vyska', selectedPlant.vyska)}
+									progress={selectedPlant.vlhkost}
+									color='lightblue'
+								/>
+							</View>
+
+							{/* light */}
+							<View className='my-4 p-4 bg-white rounded-md shadow-md'>
+								<Text className='font-sans text-lg'>
+									Light{' '}
+									<Text className='font-semibold'>
+										{Math.round((selectedPlant.svetlo / 4200) * 100)}%
+									</Text>
+								</Text>
+								<AnimatedProgressBar
+									progress={(selectedPlant.svetlo / 4200) * 100}
+									color='yellow'
 								/>
 							</View>
 
@@ -160,7 +166,7 @@ export default function List() {
 								</Text>
 								<AnimatedProgressBar
 									progress={(selectedPlant.teplotaV / 40) * 100}
-									color={getColor('teplotaV', selectedPlant.teplotaV)}
+									color='red'
 								/>
 							</View>
 
@@ -174,32 +180,26 @@ export default function List() {
 								</Text>
 								<AnimatedProgressBar
 									progress={(selectedPlant.teplotaZ / 40) * 100}
-									color={getColor('teplotaZ', selectedPlant.teplotaZ)}
+									color='green'
 								/>
 							</View>
 
-							{/* soil water */}
+							{/* pressure */}
 							<View className='my-4 p-4 bg-white rounded-md shadow-md'>
 								<Text className='font-sans text-lg'>
-									Soil Water:{' '}
-									<Text className='font-semibold'>{selectedPlant.voda}%</Text>
+									Pressure{' '}
+									<Text className='font-semibold'>{selectedPlant.tlak} hPa</Text>
 								</Text>
-								<AnimatedProgressBar
-									progress={selectedPlant.voda}
-									color={getColor('voda', selectedPlant.voda)}
-								/>
 							</View>
 
-							{/* air moisture */}
+							{/* height above sea level */}
 							<View className='my-4 p-4 bg-white rounded-md shadow-md'>
 								<Text className='font-sans text-lg'>
-									Air Moisture:{' '}
-									<Text className='font-semibold'>{selectedPlant.vlhkost}%</Text>
+									Height Above Sea Level:{' '}
+									<Text className='font-semibold'>
+										{Math.round(selectedPlant.vyska)}m{' '}
+									</Text>
 								</Text>
-								<AnimatedProgressBar
-									progress={selectedPlant.vlhkost}
-									color={getColor('vlhkost', selectedPlant.vlhkost)}
-								/>
 							</View>
 						</View>
 					</ScrollView>

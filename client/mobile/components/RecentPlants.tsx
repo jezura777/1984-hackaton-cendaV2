@@ -3,6 +3,7 @@ import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import mockData from '../assets/data/Plants.json';
 import { useExpoRouter } from 'expo-router/build/global-state/router-store';
+import AnimatedProgressBar from '../components/AnimatedProgressBar';
 
 export default function MostPopularPlants() {
 	const { navigate } = useExpoRouter();
@@ -25,17 +26,13 @@ export default function MostPopularPlants() {
 				/>
 				<View className='absolute w-11/12 m-3 px-2 pt-7 pb-3 pl-5 bottom-0 rounded-2xl bg-white'>
 					<Text className='text-md text-light-text font-semibold'>{item.jmeno}</Text>
-					<View className='mt-2'>
-						<Ionicons name='water' size={20} color='blue' className='-mb-3' />
-						<View className='ml-6 mb-3'>
-							<View className='ml-2 w-40 h-2 bg-blue-200 rounded'>
-								<View
-									className='h-2 bg-blue-500 rounded-md pl-2'
-									style={{
-										width: `${Math.min((item.voda / 12000) * 100, 100)}%`,
-									}}
-								/>
-							</View>
+					<View className='mt-3'>
+						<Ionicons name='water' size={20} color='blue' className='-mb-6' />
+						<View className='ml-8 mb-3'>
+							<AnimatedProgressBar
+								progress={(item.voda / 14000) * 100}
+								color='blue'
+							/>
 						</View>
 					</View>
 				</View>
@@ -60,7 +57,7 @@ export default function MostPopularPlants() {
 			</View>
 			{/* Sliding Cards */}
 			<FlatList
-				data={mockData}
+				data={mockData.plants}
 				horizontal
 				keyExtractor={(item) => item.id.toString()}
 				renderItem={renderPlantCard}

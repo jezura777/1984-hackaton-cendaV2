@@ -1,113 +1,124 @@
-[
-	{
-		"id": 1,
-		"teplotaV": 23.38,
-		"tlak": 996.9313,
-		"vyska": 136.7588,
-		"vlhkost": 27.72168,
-		"svetlo": 2,
-		"teplotaZ": 21.875,
-		"voda": 62,
-		"jmeno": "kolik",
-		"image": "https://i.imgur.com/EVYoHUx.jpeg"
-	},
-	{
-		"id": 2,
-		"teplotaV": 21.25,
-		"tlak": 926.8201,
-		"vlhkost": 25.0391,
-		"svetlo": 3,
-		"teplotaZ": 20.371,
-		"voda": 40,
-		"jmeno": "Aeonium",
-		"image": "https://randomgenerate.io/_next/image?url=https%3A%2F%2Fstatic-abbreviations.nyc3.digitaloceanspaces.com%2Frandom-generate%2Frandom-plant-generator%2FAeonium.jpeg&w=640&q=75"
-	},
-	{
-		"id": 3,
-		"teplotaV": 21.01,
-		"tlak": 1001.9124,
-		"vlhkost": 22.1927,
-		"svetlo": 4,
-		"teplotaZ": 19.41,
-		"voda": 50,
-		"jmeno": "Alocasia Zebrina",
-		"image": "https://en-gb.bakker.com/cdn/shop/products/44721-00-BAKI.jpg?v=1641568575&width=1946"
-	},
-	{
-		"id": 4,
-		"teplotaV": 22.56,
-		"tlak": 930.1945,
-		"vlhkost": 26.0732,
-		"svetlo": 5,
-		"teplotaZ": 21.875,
-		"voda": 50,
-		"jmeno": "Lavender",
-		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Single_lavender_flower02.jpg/1200px-Single_lavender_flower02.jpg"
-	},
-	{
-		"id": 5,
-		"teplotaV": 23.45,
-		"tlak": 1010.1234,
-		"vlhkost": 30.1234,
-		"svetlo": 1,
-		"teplotaZ": 22.5,
-		"voda": 60,
-		"jmeno": "Acoma Crape Myrtle",
-		"image": "https://lichtenfelts.com/cdn/shop/products/acomacrapemyrtle.jpg?v=1675527985"
-	},
-	{
-		"id": 6,
-		"teplotaV": 24.56,
-		"tlak": 1020.5678,
-		"vlhkost": 28.5678,
-		"svetlo": 2,
-		"teplotaZ": 23.0,
-		"voda": 55,
-		"jmeno": "Frances Williams Hosta",
-		"image": "https://nhhostas.com/cdn/shop/files/FrancesWilliamsHosta3.jpg?v=1705426295&width=2048"
-	},
-	{
-		"id": 7,
-		"teplotaV": 25.67,
-		"tlak": 1030.8765,
-		"vlhkost": 32.8765,
-		"svetlo": 3,
-		"teplotaZ": 24.1,
-		"voda": 65,
-		"jmeno": "Anemone",
-		"image": "https://www.planetnatural.com/wp-content/uploads/2024/02/Anemone-Flower.jpg"
-	},
-	{
-		"id": 8,
-		"teplotaV": 26.78,
-		"tlak": 1040.4321,
-		"vlhkost": 27.4321,
-		"svetlo": 4,
-		"teplotaZ": 25.2,
-		"voda": 70,
-		"jmeno": "Anise Magnolia",
-		"image": "https://jurassicplants.co.uk/cdn/shop/products/magnolias_2048x.jpg?v=1680270265"
-	},
-	{
-		"id": 9,
-		"teplotaV": 27.89,
-		"tlak": 1050.6543,
-		"vlhkost": 29.6543,
-		"svetlo": 5,
-		"teplotaZ": 26.3,
-		"voda": 75,
-		"jmeno": "Calamus",
-		"image": "https://upload.wikimedia.org/wikipedia/commons/3/37/Acorus_calamus1.jpg"
-	},
-	{
-		"id": 10,
-		"teplotaV": 28.9,
-		"tlak": 1060.789,
-		"vlhkost": 31.789,
-		"svetlo": 6,
-		"teplotaZ": 27.4,
-		"voda": 80,
-		"jmeno": "Hellebore",
-		"image": "https://www.meadowsfarms.com/great-big-greenhouse-gardening-blog/wp-content/uploads/sites/2/2019/01/hellebores-blog.jpg.webp"
-	}
-]
+{
+  "plants": [
+    {
+      "id": 1,
+      "teplotaV": 28.37,
+      "tlak": 1006.197,
+      "vyska": 58.89009,
+      "vlhkost": 33.95215,
+      "svetlo": 1966,
+      "teplotaZ": 25.0625,
+      "voda": 6464,
+      "jmeno": "Heartleaf-Philodendron",
+      "image": "https://i.imgur.com/EVYoHUx.jpeg"
+    },
+    {
+      "id": 2,
+      "teplotaV": 21.25,
+      "tlak": 926.8201,
+      "vlhkost": 25.0391,
+      "vyska": 136.7588,
+      "svetlo": 3,
+      "teplotaZ": 20.371,
+      "voda": 6500,
+      "jmeno": "Aeonium",
+      "image": "https://randomgenerate.io/_next/image?url=https%3A%2F%2Fstatic-abbreviations.nyc3.digitaloceanspaces.com%2Frandom-generate%2Frandom-plant-generator%2FAeonium.jpeg&w=640&q=75"
+    },
+    {
+      "id": 3,
+      "teplotaV": 21.01,
+      "vyska": 136.7588,
+      "tlak": 1001.9124,
+      "vlhkost": 22.1927,
+      "svetlo": 4,
+      "teplotaZ": 19.41,
+      "voda": 6000,
+      "jmeno": "Alocasia Zebrina",
+      "image": "https://en-gb.bakker.com/cdn/shop/products/44721-00-BAKI.jpg?v=1641568575&width=1946"
+    },
+    {
+      "id": 4,
+      "teplotaV": 22.56,
+      "tlak": 930.1945,
+      "vlhkost": 26.0732,
+      "vyska": 136.7588,
+      "svetlo": 5,
+      "teplotaZ": 21.875,
+      "voda": 5000,
+      "jmeno": "Lavender",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Single_lavender_flower02.jpg/1200px-Single_lavender_flower02.jpg"
+    },
+    {
+      "id": 5,
+      "teplotaV": 23.45,
+      "tlak": 1010.1234,
+      "vyska": 136.7588,
+      "vlhkost": 30.1234,
+      "svetlo": 1,
+      "teplotaZ": 22.5,
+      "voda": 4000,
+      "jmeno": "Acoma Crape Myrtle",
+      "image": "https://lichtenfelts.com/cdn/shop/products/acomacrapemyrtle.jpg?v=1675527985"
+    },
+    {
+      "id": 6,
+      "teplotaV": 24.56,
+      "tlak": 1020.5678,
+      "vlhkost": 28.5678,
+      "svetlo": 2,
+      "vyska": 136.7588,
+      "teplotaZ": 23,
+      "voda": 6000,
+      "jmeno": "Frances Williams Hosta",
+      "image": "https://nhhostas.com/cdn/shop/files/FrancesWilliamsHosta3.jpg?v=1705426295&width=2048"
+    },
+    {
+      "id": 7,
+      "teplotaV": 25.67,
+      "tlak": 1030.8765,
+      "vlhkost": 32.8765,
+      "svetlo": 3,
+      "teplotaZ": 24.1,
+      "vyska": 136.7588,
+      "voda": 1000,
+      "jmeno": "Anemone",
+      "image": "https://www.planetnatural.com/wp-content/uploads/2024/02/Anemone-Flower.jpg"
+    },
+    {
+      "id": 8,
+      "teplotaV": 26.78,
+      "tlak": 1040.4321,
+      "vlhkost": 27.4321,
+      "vyska": 136.7588,
+      "svetlo": 4,
+      "teplotaZ": 25.2,
+      "voda": 3000,
+      "jmeno": "Anise Magnolia",
+      "image": "https://jurassicplants.co.uk/cdn/shop/products/magnolias_2048x.jpg?v=1680270265"
+    },
+    {
+      "id": 9,
+      "teplotaV": 27.89,
+      "tlak": 1050.6543,
+      "vlhkost": 29.6543,
+      "vyska": 136.7588,
+      "svetlo": 5,
+      "teplotaZ": 26.3,
+      "voda": 5423,
+      "jmeno": "Calamus",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/3/37/Acorus_calamus1.jpg"
+    },
+    {
+      "id": 10,
+      "teplotaV": 28.9,
+      "tlak": 1060.789,
+      "vlhkost": 31.789,
+      "vyska": 136.7588,
+      "svetlo": 6,
+      "teplotaZ": 27.4,
+      "voda": 3245,
+      "jmeno": "Hellebore",
+      "image": "https://www.meadowsfarms.com/great-big-greenhouse-gardening-blog/wp-content/uploads/sites/2/2019/01/hellebores-blog.jpg.webp"
+    }
+  ]
+}
