@@ -1,2 +1,2 @@
 # 1984-hackaton
-echechechechechech
+Čenda(TM) Chytrá sonda pro vaši chytrou zahradu.
