@@ -78,7 +78,7 @@ export default function List() {
 		>
 			<Image source={{ uri: item.image }} className='w-full h-full absolute top-0 left-0' />
 			<View className='absolute bottom-0 w-full bg-white bg-opacity-80 p-2'>
-				<Text className='text-lg font-bold'>{item.jmeno}</Text>
+				<Text className='text-lg font-semibold pb-1'>{item.jmeno}</Text>
 			</View>
 		</TouchableOpacity>
 	);
