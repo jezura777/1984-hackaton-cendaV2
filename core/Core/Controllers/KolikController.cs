@@ -60,8 +60,8 @@ namespace Core.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[ValidateAntiForgeryToken]
-        
-        
+
+
         //
         [Route("/test")]
         [HttpGet]
@@ -73,7 +73,7 @@ namespace Core.Controllers
 
         [Route("Kolik/Endpoint")]
         [HttpPost]
-        
+
         public IActionResult Endpoint([FromBody] KolikModel kolikModel)
         {
             Console.WriteLine("End point POST");
@@ -85,11 +85,14 @@ namespace Core.Controllers
                 return RedirectToAction(nameof(Index));
             }
             //return View(kolikModel);*/
-            if(Directory.Exists(pathToFile))
+            if (Directory.Exists(pathToFile))
             {
                 Console.WriteLine("Soubor neexistuje, vytvareni");
                 Directory.CreateDirectory(pathToFile);
             }
+
+            Console.WriteLine(kolikModel);
+
 
             try
             {
@@ -111,32 +114,73 @@ namespace Core.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");            
+                return StatusCode(500, $"Internal server error: {ex.Message}");
             }
 
             return Ok(kolikModel);
         }
 
+        [Route("Kolik/FetchTest")]
+        [HttpPost]
+        public IActionResult FetchTest([FromBody] FetchTest fetchTest)
+        {
+            return Ok(fetchTest);
+        }
+
+        [Route("Kolik/GetData")]
+        [HttpGet]
+        public IActionResult SendData()
+        {
+            var pathToFile = Directory.GetCurrentDirectory() + "\\DatabazeLegit.txt";
+            foreach (var line in System.IO.File.ReadLines(pathToFile)) {
+
+                string[] parts = line.Split(' ');
+                if (parts.Length == 9)
+                {
+                    double TV = double.Parse(parts[1]);
+                    double TL = double.Parse(parts[2]);
+                    double VY = double.Parse(parts[3]);
+                    double VL = double.Parse(parts[4]);
+                    int SV = int.Parse(parts[5]);
+                    double TZ = double.Parse(parts[6]);
+                    short VD = short.Parse(parts[7]);
+                    
+
+                    SendDataModel sentData = new SendDataModel { TeplotaV = TV, Tlak = TL, Vyska = VY, Vlhkost = VL, Svetlo = SV, TeplotaZ = TZ, Voda = VD, Jmeno = parts[8] };
+                    return Ok(sentData);
+                } 
+                else
+                {
+                    return BadRequest();
+                }
+                
+            }
+            return BadRequest();
+        }
+         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
         private string ReplaceName(string line, string Name)
         {
             string pattern = @"\s(\w+)$";
             return Regex.Replace(line, pattern, " " + Name); 
-        }
-
-        /*
-        [Route("Data/Nazev")]
-        [HttpPost]
-        public IActionResult zNazev([FromBody] Nazev nNazev)
-        {
-            var pathToFile = Directory.GetCurrentDirectory() + "\\DatabazeLegit.txt";
-            if (Directory.Exists(pathToFile))
-            {
-                Console.WriteLine("Soubor neexistuje, vytvareni");
-                Directory.CreateDirectory(pathToFile);
-            }
-
-
         }*/
+
+        //[Route("")]
 
 
         /*
@@ -159,7 +203,7 @@ namespace Core.Controllers
         // POST: Kolik/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        
+
         /*
         [HttpPost]
         [ValidateAntiForgeryToken]
