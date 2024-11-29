@@ -1,0 +1,112 @@
+[
+	{
+		"id": 1,
+		"name": "Heartleaf Philodendron",
+		"water": 7500,
+		"image": "https://i.imgur.com/EVYoHUx.jpeg",
+		"qualityOfAir": 80,
+		"co2": 400,
+		"airTemperature": 25,
+		"soilTemperature": 20,
+		"soilMoisture": 70
+	},
+	{
+		"id": 2,
+		"name": "Aeonium",
+		"water": 6000,
+		"image": "https://randomgenerate.io/_next/image?url=https%3A%2F%2Fstatic-abbreviations.nyc3.digitaloceanspaces.com%2Frandom-generate%2Frandom-plant-generator%2FAeonium.jpeg&w=640&q=75",
+		"qualityOfAir": 70,
+		"co2": 420,
+		"airTemperature": 24,
+		"soilTemperature": 19,
+		"soilMoisture": 65
+	},
+	{
+		"id": 3,
+		"name": "Alocasia Zebrina",
+		"water": 10000,
+		"image": "https://en-gb.bakker.com/cdn/shop/products/44721-00-BAKI.jpg?v=1641568575&width=1946",
+		"qualityOfAir": 85,
+		"co2": 390,
+		"airTemperature": 28,
+		"soilTemperature": 22,
+		"soilMoisture": 75
+	},
+	{
+		"id": 4,
+		"name": "Lavender",
+		"water": 8000,
+		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Single_lavender_flower02.jpg/1200px-Single_lavender_flower02.jpg",
+		"qualityOfAir": 75,
+		"co2": 410,
+		"airTemperature": 23,
+		"soilTemperature": 21,
+		"soilMoisture": 68
+	},
+	{
+		"id": 5,
+		"name": "Acoma Crape Myrtle",
+		"water": 9000,
+		"image": "https://lichtenfelts.com/cdn/shop/products/acomacrapemyrtle.jpg?v=1675527985",
+		"qualityOfAir": 80,
+		"co2": 395,
+		"airTemperature": 26,
+		"soilTemperature": 20,
+		"soilMoisture": 72
+	},
+	{
+		"id": 6,
+		"name": "Frances Williams Hosta",
+		"water": 7000,
+		"image": "https://nhhostas.com/cdn/shop/files/FrancesWilliamsHosta3.jpg?v=1705426295&width=2048",
+		"qualityOfAir": 78,
+		"co2": 405,
+		"airTemperature": 22,
+		"soilTemperature": 18,
+		"soilMoisture": 70
+	},
+	{
+		"id": 7,
+		"name": "Anemone",
+		"water": 6500,
+		"image": "https://www.planetnatural.com/wp-content/uploads/2024/02/Anemone-Flower.jpg",
+		"qualityOfAir": 82,
+		"co2": 415,
+		"airTemperature": 24,
+		"soilTemperature": 19,
+		"soilMoisture": 66
+	},
+	{
+		"id": 8,
+		"name": "Anise Magnolia",
+		"water": 7200,
+		"image": "https://jurassicplants.co.uk/cdn/shop/products/magnolias_2048x.jpg?v=1680270265",
+		"qualityOfAir": 77,
+		"co2": 400,
+		"airTemperature": 23,
+		"soilTemperature": 20,
+		"soilMoisture": 69
+	},
+	{
+		"id": 9,
+		"name": "Calamus",
+		"water": 6800,
+		"image": "https://upload.wikimedia.org/wikipedia/commons/3/37/Acorus_calamus1.jpg",
+		"qualityOfAir": 81,
+		"co2": 385,
+		"airTemperature": 25,
+		"soilTemperature": 21,
+		"soilMoisture": 71
+	},
+	{
+		"id": 10,
+		"name": "Hellebore",
+		"water": 5000,
+		"image": "https://www.meadowsfarms.com/great-big-greenhouse-gardening-blog/wp-content/uploads/sites/2/2019/01/hellebores-blog.jpg.webp",
+		"qualityOfAir": 79,
+		"co2": 405,
+		"airTemperature": 26,
+		"soilTemperature": 22,
+		"soilMoisture": 60
+	}
+]

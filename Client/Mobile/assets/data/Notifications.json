@@ -1,0 +1,32 @@
+[
+	{
+		"id": 1,
+		"title": "Watering Alert: Heartleaf Philodendron",
+		"description": "Your Heartleaf Philodendron has received too much water from rain. Please check the soil moisture.",
+		"timestamp": "2023-10-01T10:00:00Z"
+	},
+	{
+		"id": 2,
+		"title": "Temperature Warning: Tropical Plant",
+		"description": "The temperature has dropped too low for your Tropical Plant. Consider moving it to a warmer location.",
+		"timestamp": "2023-10-02T12:00:00Z"
+	},
+	{
+		"id": 3,
+		"title": "Watering Reminder: Indoor Plant",
+		"description": "Don't forget to water your Indoor Plant today.",
+		"timestamp": "2023-10-03T08:00:00Z"
+	},
+	{
+		"id": 4,
+		"title": "Fertilizer Needed: Flower Plant",
+		"description": "It's time to fertilize your Flower Plant. Use a balanced fertilizer for best results.",
+		"timestamp": "2023-10-04T14:00:00Z"
+	},
+	{
+		"id": 5,
+		"title": "Sunlight Alert: Decor Plant",
+		"description": "Your Decor Plant is not receiving enough sunlight. Move it to a brighter spot.",
+		"timestamp": "2023-10-05T09:00:00Z"
+	}
+]
