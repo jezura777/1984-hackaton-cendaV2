@@ -12,10 +12,11 @@
 #define SEALEVELPRESSURE_HPA (1013.25)
 #define JSON_LENGHT 1024
 
+
 Adafruit_BME280 bme; // I2C
 #define LIGHT_SENSOR_PIN 0
 // Add a 4k7 pull-up resistor to this pin
-#define SOIL_SENSOR_PIN 14
+#define SOIL_SENSOR_PIN 7
 
 OneWire oneWire(SOIL_SENSOR_PIN);
 SoilSensor soilSensor(&oneWire);
@@ -24,14 +25,20 @@ unsigned long delayTime;
 
 const char* ssid = "hackathon";
 const char* password = "att4hack";
-const uint16_t port = 80;
-const char * host = "http://10.10.8.50/Kolik/Endpoint";
+const char* host = "http://10.10.8.50/Kolik/Endpoint";
+
+uint8_t newMACAddress[] = {0x32, 0xAE, 0xA4, 0x07, 0x0D, 0x66};
 
 void setup() {
   Serial.begin(9600);
-  Serial.println(F("BME280 + light test + soil"));
+  //Serial.println(F("BME280 + light test + soil"));
 
   bool status;
+
+  esp_err_t err = esp_wifi_set_mac(WIFI_IF_STA, &newMACAddress[0]);
+  if (err == ESP_OK) {
+    Serial.println("Success changing Mac Address");
+  }
 
   // default settings
   // (you can also pass in a Wire library object like &Wire2)
@@ -42,7 +49,7 @@ void setup() {
   }
   analogSetAttenuation(ADC_11db);
   soilSensor.begin();
-  Serial.println("-- Default Test --");
+  //Serial.println("-- Default Test --");
   delayTime = 500;
 
   WiFi.begin(ssid, password);
@@ -53,9 +60,11 @@ void setup() {
  
   Serial.print("WiFi connected with IP: ");
   Serial.println(WiFi.localIP());
+
   Serial.println();
 }
 
+void craftAsendJSON();
 
 void loop() { 
   //printValues();
@@ -122,20 +131,23 @@ void printValues() {
   soilSensor.sleep();
 }
 
+String craftJSON(String str);
 void craftAsendJSON()
 {
   char json[JSON_LENGHT];
   String str = craftJSON((String)json);
-  //Serial.print(json);
   
-  sendJSON(str);
+    sendJSON(str);
+  
 }
 String craftJSON(String str)
 {
+
   int Light = analogRead(LIGHT_SENSOR_PIN);
   float TemperatureGround;
   uint16_t MoistureGround;
   uint8_t baseMac[6];
+  readMacAddress(baseMac);
 
 
   soilSensor.wakeUp();
@@ -166,12 +178,12 @@ String craftJSON(String str)
         jsonDoc["Svetlo"] = Light;
         jsonDoc["TeplotaZ"] = TemperatureGround;
         jsonDoc["Voda"] = MoistureGround;
-            Serial.println("CRAFTED!");
+            //Serial.println("CRAFTED!");
 
 
         // Serialize JSON to string
         serializeJson(jsonDoc, str);
-            Serial.println("SERIALIZED!");
+            //Serial.println("SERIALIZED!");
             return str;
 
 
@@ -226,6 +238,7 @@ void sendJSON(String json)
 
   // Serial.println("Disconnecting...");
   // client.stop();
+
   if (WiFi.status() == WL_CONNECTED) {
         HTTPClient http;
   
@@ -234,7 +247,7 @@ void sendJSON(String json)
 
         // Send the request
         int httpResponseCode = http.POST(json);
-            Serial.println("SENT!");
+           // Serial.println("SENT!");
 
 
         // Check the response
