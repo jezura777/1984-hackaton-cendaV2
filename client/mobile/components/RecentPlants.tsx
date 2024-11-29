@@ -1,9 +1,12 @@
 import React from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import mockData from '../assets/data/RecentPlants.json';
+import mockData from '../assets/data/Plants.json';
+import { useExpoRouter } from 'expo-router/build/global-state/router-store';
 
-const MostPopularPlants = () => {
+export default function MostPopularPlants() {
+	const { navigate } = useExpoRouter();
+
 	const renderPlantCard = ({
 		item,
 		index,
@@ -51,7 +54,7 @@ const MostPopularPlants = () => {
 					<Ionicons name='leaf' size={24} color='green' />
 					<Text className='text-lg font-semibold'>Recent</Text>
 				</View>
-				<TouchableOpacity>
+				<TouchableOpacity onPress={() => navigate('/list')}>
 					<Text className='text-md text-gray-500 font-sans'>Show All</Text>
 				</TouchableOpacity>
 			</View>
@@ -66,6 +69,4 @@ const MostPopularPlants = () => {
 			/>
 		</View>
 	);
-};
-
-export default MostPopularPlants;
+}
