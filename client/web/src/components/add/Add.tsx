@@ -23,7 +23,7 @@ function Add(){
     ul.appendChild(newlist)
 
     //ulozeni do pole
-    Plants[i] = {id: i, name: plantname.value, location: plantlocation.value}
+    Plants[i] = {id: i, name: plantname.value, location: plantlocation.value, image: '', point: plantlocation.value}
     i++
 
     //vycisteni inputu
