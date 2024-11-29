@@ -11,7 +11,7 @@ export default function MostPopularPlants() {
 		item,
 		index,
 	}: {
-		item: { id: number; name: string; water: number; image: string };
+		item: { id: number; jmeno: string; voda: number; image: string };
 		index: number;
 	}) => {
 		const backgroundClass = index % 2 === 0 ? 'bg-light-tint' : 'bg-[#ABABAB]';
@@ -24,7 +24,7 @@ export default function MostPopularPlants() {
 					className='w-full h-full absolute top-0 left-0'
 				/>
 				<View className='absolute w-11/12 m-3 px-2 pt-7 pb-3 pl-5 bottom-0 rounded-2xl bg-white'>
-					<Text className='text-md text-light-text font-semibold'>{item.name}</Text>
+					<Text className='text-md text-light-text font-semibold'>{item.jmeno}</Text>
 					<View className='mt-2'>
 						<Ionicons name='water' size={20} color='blue' className='-mb-3' />
 						<View className='ml-6 mb-3'>
@@ -32,7 +32,7 @@ export default function MostPopularPlants() {
 								<View
 									className='h-2 bg-blue-500 rounded-md pl-2'
 									style={{
-										width: `${Math.min((item.water / 12000) * 100, 100)}%`, // Ensure it's within 0-100%
+										width: `${Math.min((item.voda / 12000) * 100, 100)}%`,
 									}}
 								/>
 							</View>

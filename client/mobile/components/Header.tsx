@@ -1,6 +1,4 @@
-import { StyleSheet, Platform } from 'react-native';
 import React, { useState } from 'react';
-import { HelloWave } from '@/components/HelloWave';
 import { View, Text, Image, Pressable, TextInput } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import NotificationsButton from './NotificationsButton';
@@ -18,9 +16,8 @@ export default function Header({ isModalVisible, onNotificationClick, onModalClo
 				<View>
 					<View className='flex-row items-center gap-3 mb-3'>
 						<Text className='text-4xl font-sans text-light-text dark:text-dark-text'>
-							Welcome
+							Welcome 👋
 						</Text>
-						{/* <HelloWave /> */}
 					</View>
 					<Text className='text-4xl font-semibold text-light-text dark:text-dark-text'>
 						Chris Allow

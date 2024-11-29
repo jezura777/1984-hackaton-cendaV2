@@ -1,36 +1,75 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Modal, Image, ScrollView } from 'react-native';
-import plantsData from '@/assets/data/RecentPlants.json';
-import { ProgressBar } from 'react-native-paper';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useExpoRouter } from 'expo-router/build/global-state/router-store';
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import plantsData from '@/assets/data/Plants.json';
+import AnimatedProgressBar from '@/components/AnimatedProgressBar';
 
 export default function List() {
 	const [selectedPlant, setSelectedPlant] = useState<null | {
 		id: number;
-		name: string;
+		jmeno: string;
 		image: string;
-		qualityOfAir: number;
-		co2: number;
-		airTemperature: number;
-		soilMoisture: number;
-		soilTemperature: number;
+		voda: number;
+		teplotaZ: number;
+		teplotaV: number;
+		svetlo: number;
+		vlhkost: number;
+		vyska: number;
+		tlak: number;
 	}>(null);
+	const router = useRouter();
 
-	const router = useExpoRouter();
+	const getColor = (property: string, value: number): string => {
+		switch (property) {
+			case 'teplotaV': // air temperature
+				if (value < 18 || value > 27) return 'red';
+				if ((value >= 18 && value < 20) || (value > 25 && value <= 27)) return 'yellow';
+				return 'green';
+			case 'tlak': // pressure
+				if (value < 900 || value > 1100) return 'red';
+				if ((value >= 900 && value < 950) || (value > 1050 && value <= 1100))
+					return 'yellow';
+				return 'green';
+			case 'vyska': // height above sea level
+				if (value < 50 || value > 200) return 'red';
+				if ((value >= 50 && value < 100) || (value > 150 && value <= 200)) return 'yellow';
+				return 'green';
+			case 'vlhkost': // air moisture
+				if (value < 20 || value > 80) return 'red';
+				if ((value >= 20 && value < 30) || (value > 70 && value <= 80)) return 'yellow';
+				return 'green';
+			case 'svetlo': // light
+				if (value < 2 || value > 6) return 'red';
+				if ((value >= 2 && value < 3) || (value > 5 && value <= 6)) return 'yellow';
+				return 'green';
+			case 'teplotaZ': // soil temperature
+				if (value < 15 || value > 30) return 'red';
+				if ((value >= 15 && value < 18) || (value > 27 && value <= 30)) return 'yellow';
+				return 'green';
+			case 'voda': // water in soil
+				if (value < 20 || value > 80) return 'red';
+				if ((value >= 20 && value < 30) || (value > 70 && value <= 80)) return 'yellow';
+				return 'green';
+			default:
+				return 'gray';
+		}
+	};
 
 	const renderPlantItem = ({
 		item,
 	}: {
 		item: {
 			id: number;
-			name: string;
+			jmeno: string;
 			image: string;
-			qualityOfAir: number;
-			co2: number;
-			airTemperature: number;
-			soilMoisture: number;
-			soilTemperature: number;
+			voda: number;
+			teplotaZ: number;
+			teplotaV: number;
+			svetlo: number;
+			vlhkost: number;
+			vyska: number;
+			tlak: number;
 		};
 	}) => (
 		<TouchableOpacity
@@ -39,7 +78,7 @@ export default function List() {
 		>
 			<Image source={{ uri: item.image }} className='w-full h-full absolute top-0 left-0' />
 			<View className='absolute bottom-0 w-full bg-white bg-opacity-80 p-2'>
-				<Text className='text-lg font-bold'>{item.name}</Text>
+				<Text className='text-lg font-bold'>{item.jmeno}</Text>
 			</View>
 		</TouchableOpacity>
 	);
@@ -85,47 +124,81 @@ export default function List() {
 							</TouchableOpacity>
 						</View>
 						<View className='p-5'>
-							<Text className='text-3xl font-semibold'>{selectedPlant.name}</Text>
+							<Text className='text-3xl font-semibold'>{selectedPlant.jmeno}</Text>
+
+							{/* pressure */}
 							<View className='my-4 p-4 bg-white rounded-md shadow-md'>
 								<Text className='font-sans text-lg'>
-									Quality of Air: {selectedPlant.qualityOfAir}%
+									Pressure{' '}
+									<Text className='font-semibold'>{selectedPlant.tlak} Pa</Text>
 								</Text>
-								<ProgressBar
-									progress={selectedPlant.qualityOfAir / 100}
-									color='blue'
+								<AnimatedProgressBar
+									progress={(selectedPlant.tlak / 1100) * 100}
+									color={getColor('tlak', selectedPlant.tlak)}
 								/>
 							</View>
+
+							{/* height above sea level */}
 							<View className='my-4 p-4 bg-white rounded-md shadow-md'>
 								<Text className='font-sans text-lg'>
-									CO₂ Level: {selectedPlant.co2} ppm
+									Height Above Sea Level:{' '}
+									<Text className='font-semibold'> {selectedPlant.vyska}m </Text>
 								</Text>
-								<ProgressBar progress={selectedPlant.co2 / 500} color='green' />
-							</View>
-							<View className='my-4 p-4 bg-white rounded-md shadow-md'>
-								<Text className='font-sans text-lg'>
-									Air Temperature: {selectedPlant.airTemperature}°C
-								</Text>
-								<ProgressBar
-									progress={selectedPlant.airTemperature / 50}
-									color='red'
+								<AnimatedProgressBar
+									progress={(selectedPlant.vyska / 200) * 100}
+									color={getColor('vyska', selectedPlant.vyska)}
 								/>
 							</View>
+
+							{/* air temperature */}
 							<View className='my-4 p-4 bg-white rounded-md shadow-md'>
 								<Text className='font-sans text-lg'>
-									Soil Moisture: {selectedPlant.soilMoisture}%
+									Air Temperature:{' '}
+									<Text className='font-semibold'>
+										{selectedPlant.teplotaV}°C
+									</Text>
 								</Text>
-								<ProgressBar
-									progress={selectedPlant.soilMoisture / 100}
-									color='brown'
+								<AnimatedProgressBar
+									progress={(selectedPlant.teplotaV / 40) * 100}
+									color={getColor('teplotaV', selectedPlant.teplotaV)}
 								/>
 							</View>
+
+							{/* soil temperature */}
 							<View className='my-4 p-4 bg-white rounded-md shadow-md'>
 								<Text className='font-sans text-lg'>
-									Soil Temperature: {selectedPlant.soilTemperature}°C
+									Soil Temperature:{' '}
+									<Text className='font-semibold'>
+										{selectedPlant.teplotaZ}°C
+									</Text>
 								</Text>
-								<ProgressBar
-									progress={selectedPlant.soilTemperature / 50}
-									color='orange'
+								<AnimatedProgressBar
+									progress={(selectedPlant.teplotaZ / 40) * 100}
+									color={getColor('teplotaZ', selectedPlant.teplotaZ)}
+								/>
+							</View>
+
+							{/* soil water */}
+							<View className='my-4 p-4 bg-white rounded-md shadow-md'>
+								<Text className='font-sans text-lg'>
+									Soil Water:{' '}
+									<Text className='font-semibold'>{selectedPlant.voda}%</Text>
+								</Text>
+								<AnimatedProgressBar
+									progress={selectedPlant.voda}
+									color={getColor('voda', selectedPlant.voda)}
+								/>
+							</View>
+
+							{/* air moisture */}
+							<View className='my-4 p-4 bg-white rounded-md shadow-md'>
+								<Text className='font-sans text-lg'>
+									Air Moisture:{' '}
+									<Text className='font-semibold'>{selectedPlant.vlhkost}%</Text>
+								</Text>
+								<AnimatedProgressBar
+									progress={selectedPlant.vlhkost}
+									color={getColor('vlhkost', selectedPlant.vlhkost)}
 								/>
 							</View>
 						</View>
