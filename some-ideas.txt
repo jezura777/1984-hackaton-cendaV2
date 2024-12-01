@@ -1,0 +1,6 @@
+1. arm chip
+2. the transmitting circuit can be powered from the energy that anthena recieves (research needs to be done)
+3. throw out the 3d printing (just single board in a piece of adhesion should be enought)
+4. all sensors on one board
+5. the solar panel would need to be under big chunk of glass (for protection from steps or vandalism)
+6. could I power the whole thing just from the anthena?
